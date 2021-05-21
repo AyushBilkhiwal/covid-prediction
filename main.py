@@ -4,30 +4,26 @@ import matplotlib.pyplot as plt
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn import linear_model
 
-#### LOAD DATA ####
+#LOADING DATA
 data = pd.read_csv('new data.csv',sep = ',')
 data = data[['Day','Confirmed']]
-print('-'*30);print('HEAD');print('-'*30)
-print(data.head())
+print(data.head())   #printing the first five data
 
-#### PREPARE DATA ####
-print('-'*30);print('PREPARE DATA');print('-'*30)
+#PREPARING DATA
+
 x = np.array(data['Day']).reshape(-1, 1)
 y = np.array(data['Confirmed']).reshape(-1, 1)
-#plt.plot(y,'-m')
-# plt.show()
 polyFeature = PolynomialFeatures(degree=5)
 x = polyFeature.fit_transform(x)
-# plt.plot(x,'--r')
-# plt.show()
-### TRAINING DATA ####
-print('-'*30);print('TRAINING DATA');print('-'*30)
+
+#TRAINING DATA
+print('TRAINING DATA\n')
 model = linear_model.LinearRegression()
 model.fit(x,y)
 accuracy = model.score(x,y)
 print(f'Accuracy:{round(accuracy*100,2)} %')
 y0 = model.predict(x)
-#### PREDICTION ####
+#PREDICTION
 days = 7
 print('-'*30);print('PREDICTION');print('-'*30)
 print(f'Prediction of Cases in Rajasthan  after {days} days:',end='')
